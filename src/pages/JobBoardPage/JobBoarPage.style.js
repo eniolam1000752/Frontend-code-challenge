@@ -31,6 +31,25 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  filterDrawerWrapper: {
+    width: "60vw",
+    backgroundColor: "white",
+    boxShadow: "0px 0px 10px rgba(0,0,0,0.15)",
+    position: "relative",
+    overflow: "unset",
+  },
+  filterCloseBtn: {
+    position: "absolute",
+    top: 20,
+    left: -20,
+    boxShadow: "none",
+    paddingLeft: 3,
+  },
+  drawer: {
+    "& .MuiPaper-root": {
+      overflow: "unset",
+    },
+  },
 }));
 
 export { useStyles };

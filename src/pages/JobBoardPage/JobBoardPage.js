@@ -1,18 +1,37 @@
 import React from "react";
-import { Box, Fab, Grid, Typography } from "@material-ui/core";
+import { Box, Drawer, Fab, Grid, Paper, Typography } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { theme } from "../../utils/globals";
 import { useController } from "./JobBoardPage.controller";
 import { useStyles } from "./JobBoarPage.style";
 import { SearchInput } from "../../components/SearchTextInput/SearchInput";
 import { JobsCard } from "../../components/JobsCard/JobsCard";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 export function JobBoardPage({}) {
   const classes = useStyles(theme);
-  const { openFilterModal } = useController();
+  const { toggleFilterDrawer, state } = useController();
 
   return (
     <main className={classes.mainPageWrapper}>
+      <Drawer
+        anchor={"right"}
+        open={state.isFilterDrawerOpen}
+        onClose={toggleFilterDrawer}
+        className={classes.drawer}
+      >
+        <Paper className={classes.filterDrawerWrapper}>
+          <Fab
+            aria-label="filter"
+            onClick={toggleFilterDrawer}
+            color="primary"
+            size="small"
+            className={classes.filterCloseBtn}
+          >
+            <ArrowForwardIosIcon fontSize="small" />
+          </Fab>
+        </Paper>
+      </Drawer>
       <header className={classes.appHeader}>
         <Typography variant="h5" className={classes.appTitle}>
           <b>InterPlanetry Job Hunt</b>
@@ -36,7 +55,7 @@ export function JobBoardPage({}) {
             >
               <Fab
                 aria-label="filter"
-                onClick={openFilterModal}
+                onClick={toggleFilterDrawer}
                 color="primary"
                 size="small"
               >

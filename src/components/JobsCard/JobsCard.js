@@ -74,7 +74,7 @@ export function JobsCard({ noDivider, onMorePressed, jobData }) {
               <b>Skills:</b>
             </span>
           </Box>
-          <Box display="flex" margin="10px" marginTop="20px" flexWrap="wrap">
+          <Box display="flex" margin="10px" marginTop="10px" flexWrap="wrap">
             <Badge>Node Js</Badge>
             <Badge>React js</Badge>
             <Badge>React Native</Badge>

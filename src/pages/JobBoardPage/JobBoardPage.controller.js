@@ -1,5 +1,18 @@
-export function useController() {
-  const openFilterModal = (event) => {};
+import { useReducer } from "react";
 
-  return { openFilterModal };
+export function useController() {
+  const initStates = {
+    isFilterDrawerOpen: false,
+  };
+
+  const [state, dispatch] = useReducer(
+    (state, value) => ({ ...state, ...value }),
+    initStates
+  );
+
+  const toggleFilterDrawer = () => {
+    dispatch({ isFilterDrawerOpen: !state.isFilterDrawerOpen });
+  };
+
+  return { toggleFilterDrawer, state };
 }
