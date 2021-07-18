@@ -22,14 +22,15 @@ import mockDb from "../../utils/mockDb/mockData.json";
 
 export function JobBoardPage({}) {
   const classes = useStyles(theme);
+  const matchSmDown = useMediaQuery(theme.breakpoints.down("xs"));
   const {
     toggleFilterDrawer,
     state,
     dispatch,
     onFilterOptionSelected,
     onFilterOptionDeselected,
+    onSearch,
   } = useController();
-  const matchSmDown = useMediaQuery(theme.breakpoints.down("xs"));
 
   return (
     <main className={classes.mainPageWrapper}>
@@ -58,7 +59,7 @@ export function JobBoardPage({}) {
               height="calc(100% - 110px)"
               overflow="hidden scroll"
             >
-              <Box width="250px" className={classes.toggleStack}>
+              <Box width="300px" className={classes.toggleStack}>
                 <Grid container>
                   <Grid item md={4} sm={4} xs={4}>
                     <ButtonBase
@@ -67,7 +68,7 @@ export function JobBoardPage({}) {
                         state.filterJobByForm === "all" ? "active" : ""
                       }`}
                     >
-                      All
+                      Entry Level
                     </ButtonBase>
                   </Grid>
                   <Grid item md={4} sm={4} xs={4}>
@@ -77,7 +78,7 @@ export function JobBoardPage({}) {
                         state.filterJobByForm === "on-site" ? "active" : ""
                       }`}
                     >
-                      on site
+                      Mid Level
                     </ButtonBase>
                   </Grid>
                   <Grid item md={4} sm={4} xs={4}>
@@ -87,7 +88,7 @@ export function JobBoardPage({}) {
                         state.filterJobByForm === "remote" ? "active" : ""
                       }`}
                     >
-                      Remote
+                      Experienced
                     </ButtonBase>
                   </Grid>
                 </Grid>
@@ -106,11 +107,11 @@ export function JobBoardPage({}) {
                       onSelect={(selectedOption) =>
                         onFilterOptionSelected(item, selectedOption)
                       }
-                      onDeSelect={(indexOfDeletedOption) =>
-                        onFilterOptionDeselected(item, indexOfDeletedOption)
+                      onDeSelect={(optionIndexToDelete) =>
+                        onFilterOptionDeselected(item, optionIndexToDelete)
                       }
                       selected={
-                        state.selectedFilterParams[item.header_text] || []
+                        state.selectedFilterParams[item.header_text] || {}
                       }
                     />
                   </Box>
@@ -139,13 +140,13 @@ export function JobBoardPage({}) {
           <b>InterPlanetry Job Hunt</b>
         </Typography>
       </header>
-      <Box>
+      <Box overflow="hidden">
         <Box padding="40px" marginTop="70px">
           <Grid container space={3}>
             <Grid item md={6} xs={12} lg={6}>
               <Box marginBottom="20px">
                 <Typography variant="p" className="jobs-for-you">
-                  Jobs for you (120)
+                  Jobs for you ({state.jobList?.length || 0})
                 </Typography>
               </Box>
             </Grid>
@@ -169,7 +170,14 @@ export function JobBoardPage({}) {
                 )}
                 <Box width="100%" maxWidth={matchSmDown ? undefined : "300px"}>
                   <Box width="100%">
-                    <SearchInput placeholder={"Search "} />
+                    <SearchInput
+                      placeholder={"Search by company or job title "}
+                      searchValue={state.searchValue}
+                      onChangeText={(event) => {
+                        const value = event.target.value;
+                        onSearch(value);
+                      }}
+                    />
                   </Box>
                   {matchSmDown && (
                     <Box marginTop="20px">
@@ -191,7 +199,7 @@ export function JobBoardPage({}) {
           </Grid>
         </Box>
         <Box display="flex" alignItems="center" flexDirection="column">
-          {mockDb.jobs.map((item, index) => (
+          {state.jobList.map((item, index) => (
             <JobsCard
               jobData={item}
               key={`job-item-${index}`}

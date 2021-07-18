@@ -5,10 +5,15 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export function SearchInput(props) {
   const classes = useStyles();
+  const { onChangeText } = props;
 
   return (
     <Box position="relative" width="100%">
-      <InputBase inputProps={props} className={classes.searchInput} />
+      <InputBase
+        inputProps={props}
+        className={classes.searchInput}
+        onChange={onChangeText}
+      />
       <SearchIcon
         style={{ position: "absolute", left: 8, top: 12, fontSize: 25 }}
       />

@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: 60,
       paddingTop: 11,
       paddingBottom: 11,
-      fontSize: "0.8em",
+      fontSize: "0.72em",
       fontWeight: "500",
     },
     "& .switch-button.active": {

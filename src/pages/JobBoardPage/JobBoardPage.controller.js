@@ -7,33 +7,49 @@ export function useController() {
     filterJobByForm: "all",
     selectedFilterParams: {},
     jobList: [],
+    searchValue: "",
   };
-
-  useEffect(() => {
-    dispatch({ jobList: mockDb.jobs });
-  }, []);
+  console.log("test");
 
   const [state, dispatch] = useReducer(
     (state, value) => ({ ...state, ...value }),
     initStates
   );
 
+  useEffect(() => {
+    const initSelectedFilterParams = mockDb.filter_params.reduce(
+      (cum, item) => ({ ...cum, [item.header_text]: { 0: true } }),
+      {}
+    );
+
+    dispatch({
+      jobList: mockDb.jobs,
+      selectedFilterParams: initSelectedFilterParams,
+    });
+  }, []);
+
+  useEffect(() => {
+    onSearch(state.searchValue);
+  }, [state.selectedFilterParams]);
+
+  const { selectedFilterParams } = state;
+
   const toggleFilterDrawer = () => {
     dispatch({ isFilterDrawerOpen: !state.isFilterDrawerOpen });
   };
 
   const onFilterOptionSelected = (filterSectionItem, indexOfSelectedOption) => {
-    let newSelected = [];
+    let newSelected = {};
     let selectedOptions =
-      state.selectedFilterParams[filterSectionItem.header_text] || [];
+      state.selectedFilterParams[filterSectionItem.header_text] || {};
 
     if (indexOfSelectedOption !== 0) {
-      // filter to remove any selection if any other option is selected
-      selectedOptions = selectedOptions.filter((item) => item);
+      // to remove "any" selection if options other than "any" is selected
+      delete selectedOptions[0];
 
-      newSelected = [...selectedOptions, indexOfSelectedOption];
+      newSelected = { ...selectedOptions, [indexOfSelectedOption]: true };
     } else {
-      newSelected = [0];
+      newSelected = { 0: true };
     }
 
     dispatch({
@@ -44,17 +60,14 @@ export function useController() {
     });
   };
 
-  const onFilterOptionDeselected = (
-    filterSectionItem,
-    indexInSelectedToDelete
-  ) => {
+  const onFilterOptionDeselected = (filterSectionItem, optionIndexToDelete) => {
     delete state.selectedFilterParams[filterSectionItem.header_text][
-      indexInSelectedToDelete
+      optionIndexToDelete
     ];
 
-    const newSelected = state.selectedFilterParams[
-      filterSectionItem.header_text
-    ].filter((item) => item || item === 0);
+    const newSelected = {
+      ...state.selectedFilterParams[filterSectionItem.header_text],
+    };
 
     dispatch({
       selectedFilterParams: {
@@ -64,7 +77,36 @@ export function useController() {
     });
   };
 
-  const onSearch = () => {};
+  const onSearch = (searchText) => {
+    let searchResults = [];
+
+    if (searchText?.trim()?.length !== 0) {
+      // filter logic implemented here
+      searchResults = mockDb.jobs.filter((item) => {
+        return (
+          (new RegExp(searchText.toLowerCase()).test(item.name.toLowerCase()) ||
+            new RegExp(searchText.toLowerCase()).test(
+              item.role.toLowerCase()
+            )) &&
+          (selectedFilterParams["Job Type"][item.type.id] ||
+            selectedFilterParams["Job Type"][0]) &&
+          (selectedFilterParams["Company Market"][item.company_market.id] ||
+            selectedFilterParams["Company Market"][0]) &&
+          (!selectedFilterParams["Necessary skills"][0]
+            ? item.skills.reduce((cum, item) => {
+                cum = !cum
+                  ? selectedFilterParams["Necessary skills"][item.id]
+                  : cum;
+                return cum;
+              }, false)
+            : true)
+        );
+      });
+    } else {
+      searchResults = mockDb.jobs;
+    }
+    dispatch({ jobList: searchResults, searchValue: searchText });
+  };
 
   return {
     toggleFilterDrawer,

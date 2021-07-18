@@ -7,63 +7,36 @@
       "website_url": "www.google.com",
       "logo": "/companyLogos/react_logo.png",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
-      "type": "internship",
+      "type": { "id": 1, "display_text": "Internship" },
       "location": "Africa, South Africa",
-      "company_market": "Software",
-      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
+      "company_market": { "id": 6, "display_text": "Software" },
+      "skills": [
+        { "id": 10, "display_text": "Java" },
+        { "id": 11, "display_text": "Javascript" },
+        { "id": 1, "display_text": "React" },
+        { "id": 2, "display_text": "React-Native" },
+        { "id": 12, "display_text": "CSS" }
+      ],
       "role": "Frontend Developer",
       "work_nature": "remote"
     },
     {
       "id": 1,
-      "name": "Google",
-      "website_url": "www.google.com",
+      "name": "Facebook",
+      "website_url": "www.facebook.com",
       "logo": "/companyLogos/react_logo.png",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
-      "type": "internship",
+      "type": { "id": 3, "display_text": "full time" },
       "location": "Africa, South Africa",
-      "company_market": "Software",
-      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
-      "role": "Frontend Developer",
-      "work_nature": "remote"
-    },
-    {
-      "id": 1,
-      "name": "Google",
-      "website_url": "www.google.com",
-      "logo": "/companyLogos/react_logo.png",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
-      "type": "internship",
-      "location": "Africa, South Africa",
-      "company_market": "Software",
-      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
-      "role": "Frontend Developer",
-      "work_nature": "remote"
-    },
-    {
-      "id": 1,
-      "name": "Google",
-      "website_url": "www.google.com",
-      "logo": "/companyLogos/react_logo.png",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
-      "type": "internship",
-      "location": "Africa, South Africa",
-      "company_market": "Software",
-      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
-      "role": "Frontend Developer",
-      "work_nature": "remote"
-    },
-    {
-      "id": 1,
-      "name": "Google",
-      "website_url": "www.google.com",
-      "logo": "/companyLogos/react_logo.png",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
-      "type": "internship",
-      "location": "Africa, South Africa",
-      "company_market": "Software",
-      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
-      "role": "Frontend Developer",
+      "company_market": { "id": 6, "display_text": "Software" },
+      "skills": [
+        { "id": 5, "display_text": "Docker" },
+        { "id": 6, "display_text": "CI/CD" },
+        { "id": 7, "display_text": "Travis CI" },
+        { "id": 8, "display_text": ".Net" },
+        { "id": 9, "display_text": "AWS suite" }
+      ],
+      "role": "Backend Engineer",
       "work_nature": "remote"
     }
   ],
@@ -77,7 +50,14 @@
         "React Native",
         "Angular",
         "expressjs",
-        "docker"
+        "docker",
+        "CI/CD",
+        "Travis CI",
+        ".Net",
+        "AWS suite",
+        "Java",
+        "Javascript",
+        "CSS"
       ]
     },
     {
@@ -88,11 +68,12 @@
       "header_text": "Company Market",
       "options": [
         "Any",
-        "Reasearch and development",
+        "R&D",
         "Health",
         "crypto currency",
         "banking",
-        "FinTech"
+        "FinTech",
+        "Software"
       ]
     }
   ]

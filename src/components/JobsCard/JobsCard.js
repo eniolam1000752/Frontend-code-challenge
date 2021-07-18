@@ -49,7 +49,7 @@ export function JobsCard({ noDivider, onMorePressed, jobData }) {
                     <span>
                       <b>Job type: </b>
                     </span>
-                    <span>{jobData.type}</span>
+                    <span>{jobData.type.display_text}</span>
                   </Box>
                   <Box className="extra-detail-item">
                     <span>
@@ -61,7 +61,7 @@ export function JobsCard({ noDivider, onMorePressed, jobData }) {
                     <span>
                       <b>Company Market: </b>
                     </span>
-                    <span>{jobData.company_market}</span>
+                    <span>{jobData.company_market.display_text}</span>
                   </Box>
                 </Box>
               </Box>
@@ -76,7 +76,7 @@ export function JobsCard({ noDivider, onMorePressed, jobData }) {
           </Box>
           <Box display="flex" margin="10px" marginTop="10px" flexWrap="wrap">
             {jobData.skills.map((skill, index) => (
-              <Badge key={`skill-${index}`}>{skill}</Badge>
+              <Badge key={`skill-${index}`}>{skill.display_text}</Badge>
             ))}
           </Box>
         </Grid>

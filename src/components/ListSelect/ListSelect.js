@@ -23,21 +23,14 @@ export function ListSelect({
       <span className="header-text">{headerText}</span>
       <ul>
         {listItem.map((item, index) => (
-          <li key={`list-item-${index}`}> 
+          <li key={`list-item-${index}`}>
             <ButtonBase
               className="list-item"
               onClick={() => {
-                const indexOfSelectedOption = selected.indexOf(index);
-                indexOfSelectedOption !== -1
-                  ? onDeSelect(indexOfSelectedOption)
-                  : onSelect(index);
+                selected[index] ? onDeSelect(index) : onSelect(index);
               }}
             >
-              <div
-                className={`circle ${
-                  selected.indexOf(index) !== -1 ? "active" : ""
-                }`}
-              />
+              <div className={`circle ${selected[index] ? "active" : ""}`} />
               <span>{item}</span>
             </ButtonBase>
           </li>
@@ -53,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "0.82em",
     "& ul": {
       listStyleType: "none",
+      maxHeight: 307,
+      overflowY: "scroll",
     },
     "& > .header-text": {
       marginLeft: 40,
