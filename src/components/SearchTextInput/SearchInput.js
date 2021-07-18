@@ -7,7 +7,7 @@ export function SearchInput(props) {
   const classes = useStyles();
 
   return (
-    <Box position="relative" width="250px">
+    <Box position="relative" width="100%">
       <InputBase inputProps={props} className={classes.searchInput} />
       <SearchIcon
         style={{ position: "absolute", left: 8, top: 12, fontSize: 25 }}

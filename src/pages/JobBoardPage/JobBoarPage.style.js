@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   mainPageWrapper: {
     width: "100%",
+    overflowX: "hidden",
 
     "& .jobs-for-you": {
       fontSize: "1.6em",
@@ -16,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: 20,
     color: theme.palette.primary.main,
+    position: "fixed",
+    backgroundColor: theme.palette.white.main,
+    zIndex: 200,
   },
   appTitle: { fontWeigth: "bold" },
   searchInput: {
@@ -33,10 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
   filterDrawerWrapper: {
     width: "60vw",
+    height: "100vh",
     backgroundColor: "white",
-    boxShadow: "0px 0px 10px rgba(0,0,0,0.15)",
+    boxShadow: "none",
     position: "relative",
     overflow: "unset",
+    [theme.breakpoints.down("sm")]: {
+      width: "300px",
+    },
   },
   filterCloseBtn: {
     position: "absolute",
@@ -48,7 +56,49 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     "& .MuiPaper-root": {
       overflow: "unset",
+      height: "100%",
     },
+  },
+  filterByContainer: {
+    width: "100%",
+    height: "100%",
+    overflow: "scroll",
+    padding: 40,
+    boxShadow: "none",
+    "& .page-title": {
+      fontSize: 20,
+      paddingLeft: 10,
+      fontWeigth: "600",
+    },
+    [theme.breakpoints.down("sm")]: {
+      padding: 5,
+      paddingTop: 40,
+      "& .page-title": {
+        paddingLeft: 40,
+      },
+    },
+  },
+  toggleStack: {
+    backgroundColor: theme.palette.grey0.main,
+    borderRadius: 60,
+    "& .switch-button": {
+      width: "100%",
+      borderRadius: 60,
+      paddingTop: 11,
+      paddingBottom: 11,
+      fontSize: "0.8em",
+      fontWeight: "500",
+    },
+    "& .switch-button.active": {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.white.main,
+      fontWeight: "700",
+    },
+  },
+  roundFilterBtn: {
+    marginRight: 30,
+    width: 40,
+    height: 40,
   },
 }));
 

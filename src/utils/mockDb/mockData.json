@@ -1,0 +1,99 @@
+{
+  "description": "This is a mock json data source for this project",
+  "jobs": [
+    {
+      "id": 1,
+      "name": "Google",
+      "website_url": "www.google.com",
+      "logo": "/companyLogos/react_logo.png",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
+      "type": "internship",
+      "location": "Africa, South Africa",
+      "company_market": "Software",
+      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
+      "role": "Frontend Developer",
+      "work_nature": "remote"
+    },
+    {
+      "id": 1,
+      "name": "Google",
+      "website_url": "www.google.com",
+      "logo": "/companyLogos/react_logo.png",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
+      "type": "internship",
+      "location": "Africa, South Africa",
+      "company_market": "Software",
+      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
+      "role": "Frontend Developer",
+      "work_nature": "remote"
+    },
+    {
+      "id": 1,
+      "name": "Google",
+      "website_url": "www.google.com",
+      "logo": "/companyLogos/react_logo.png",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
+      "type": "internship",
+      "location": "Africa, South Africa",
+      "company_market": "Software",
+      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
+      "role": "Frontend Developer",
+      "work_nature": "remote"
+    },
+    {
+      "id": 1,
+      "name": "Google",
+      "website_url": "www.google.com",
+      "logo": "/companyLogos/react_logo.png",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
+      "type": "internship",
+      "location": "Africa, South Africa",
+      "company_market": "Software",
+      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
+      "role": "Frontend Developer",
+      "work_nature": "remote"
+    },
+    {
+      "id": 1,
+      "name": "Google",
+      "website_url": "www.google.com",
+      "logo": "/companyLogos/react_logo.png",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
+      "type": "internship",
+      "location": "Africa, South Africa",
+      "company_market": "Software",
+      "skills": ["Java", "Javascript", "React", "React-Native", "CSS"],
+      "role": "Frontend Developer",
+      "work_nature": "remote"
+    }
+  ],
+  "favorite_jobs": [],
+  "filter_params": [
+    {
+      "header_text": "Necessary skills",
+      "options": [
+        "Any",
+        "React",
+        "React Native",
+        "Angular",
+        "expressjs",
+        "docker"
+      ]
+    },
+    {
+      "header_text": "Job Type",
+      "options": ["Any", "Internship", "Contract", "Full time"]
+    },
+    {
+      "header_text": "Company Market",
+      "options": [
+        "Any",
+        "Reasearch and development",
+        "Health",
+        "crypto currency",
+        "banking",
+        "FinTech"
+      ]
+    }
+  ]
+}

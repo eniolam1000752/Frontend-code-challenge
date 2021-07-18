@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import companyLogo from "../../assets/images/logo512.png";
 import LinkIcon from "@material-ui/icons/Link";
 import { Badge } from "../Badge/Badge";
+import path from "path";
 
 export function JobsCard({ noDivider, onMorePressed, jobData }) {
   const classes = useStyles();
@@ -13,27 +14,26 @@ export function JobsCard({ noDivider, onMorePressed, jobData }) {
       <Grid container>
         <Grid item sm={12} md={12}>
           <span style={{ fontSize: 20, fontWeight: 600, lineHeight: "22px" }}>
-            Fullstack software Engineer
+            {jobData.role}
           </span>
         </Grid>
         <Grid item sm={12} md={12}>
           <Grid container spacing={3}>
             <Grid item md={8}>
               <Box className={classes.companyNameWrapper}>
-                <img src={companyLogo} />
-                <span>React - facebook</span>
-                <IconButton className="company-link" onClick={() => {}}>
+                <img src={jobData.logo} />
+                <span>{jobData.name}</span>
+                <a
+                  className="company-link"
+                  href={`//${jobData.website_url}`}
+                  rel="noreferrer"
+                  target="_blank"
+                >
                   <LinkIcon fontSize="small" />
-                </IconButton>
+                </a>
               </Box>
               <Box className={classes.companyDetailsWrapper}>
-                <span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Praesent maximus, tortor ut auctor cursus, mi sem fermentum
-                  nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum
-                  sollicitudin eget non arcu. Phasellus scelerisque sit amet
-                  magna ut tempor.
-                </span>
+                <span>{jobData.description}</span>
                 <ButtonBase className="more">
                   <span>
                     <b> More</b>
@@ -49,19 +49,19 @@ export function JobsCard({ noDivider, onMorePressed, jobData }) {
                     <span>
                       <b>Job type: </b>
                     </span>
-                    <span>kjksjdkfjsf</span>
+                    <span>{jobData.type}</span>
                   </Box>
                   <Box className="extra-detail-item">
                     <span>
                       <b>Location: </b>
                     </span>
-                    <span>kjksjdkfjsf</span>
+                    <span>{jobData.location}</span>
                   </Box>
                   <Box className="extra-detail-item">
                     <span>
                       <b>Company Market: </b>
                     </span>
-                    <span>kjksjdkfjsf</span>
+                    <span>{jobData.company_market}</span>
                   </Box>
                 </Box>
               </Box>
@@ -75,12 +75,9 @@ export function JobsCard({ noDivider, onMorePressed, jobData }) {
             </span>
           </Box>
           <Box display="flex" margin="10px" marginTop="10px" flexWrap="wrap">
-            <Badge>Node Js</Badge>
-            <Badge>React js</Badge>
-            <Badge>React Native</Badge>
-            <Badge>Typescript</Badge>
-            <Badge>Mobile development</Badge>
-            <Badge>JAM stack</Badge>
+            {jobData.skills.map((skill, index) => (
+              <Badge key={`skill-${index}`}>{skill}</Badge>
+            ))}
           </Box>
         </Grid>
       </Grid>
@@ -120,7 +117,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 300,
     },
     "& img ~ span ~ .company-link": {
-      marginLeft: -5,
+      marginLeft: 10,
       transform: "rotate(-45deg) translateY(2px)",
       opacity: 0.3,
     },
