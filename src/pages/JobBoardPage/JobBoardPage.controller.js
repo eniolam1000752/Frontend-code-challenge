@@ -7,14 +7,23 @@ export function useController() {
     filterJobByForm: "all",
     selectedFilterParams: {},
     jobList: [],
+    lazyJobList: [],
     searchValue: "",
   };
-  console.log("test");
 
   const [state, dispatch] = useReducer(
     (state, value) => ({ ...state, ...value }),
     initStates
   );
+
+  const lazyLoadJobList = () => {
+    const { lazyJobList, jobList } = state;
+    const tempLazyJobList = [
+      ...lazyJobList,
+      ...jobList.slice(lazyJobList.length, lazyJobList.length + 5),
+    ];
+    dispatch({ lazyJobList: tempLazyJobList });
+  };
 
   useEffect(() => {
     const initSelectedFilterParams = mockDb.filter_params.reduce(
@@ -29,7 +38,15 @@ export function useController() {
   }, []);
 
   useEffect(() => {
+    const { lazyJobList, jobList } = state;
+    const tempLazyJobList = [...state.jobList.slice(0, 5)];
+    dispatch({ lazyJobList: tempLazyJobList });
+  }, [state.jobList]);
+
+  useEffect(() => {
+    // if (state.searchValue.length !== 0) {
     onSearch(state.searchValue);
+    // }
   }, [state.selectedFilterParams]);
 
   const { selectedFilterParams } = state;
@@ -69,6 +86,8 @@ export function useController() {
       ...state.selectedFilterParams[filterSectionItem.header_text],
     };
 
+    if (Object.keys(newSelected).length === 0) newSelected[0] = true;
+
     dispatch({
       selectedFilterParams: {
         ...state.selectedFilterParams,
@@ -77,43 +96,63 @@ export function useController() {
     });
   };
 
+  const testFilterSelection = (item) => {
+    // filter logic implemented here
+    return (
+      (selectedFilterParams["Job Type"][item.type.id] ||
+        selectedFilterParams["Job Type"][0]) &&
+      (selectedFilterParams["Company Market"][item.company_market.id] ||
+        selectedFilterParams["Company Market"][0]) &&
+      (selectedFilterParams["Location"][item.location.id] ||
+        selectedFilterParams["Location"][0]) &&
+      (!selectedFilterParams["Necessary skills"][0]
+        ? item.skills.reduce((cum, item) => {
+            cum = !cum
+              ? selectedFilterParams["Necessary skills"][item.id]
+              : cum;
+            return cum;
+          }, false)
+        : true)
+    );
+  };
+
   const onSearch = (searchText) => {
     let searchResults = [];
 
     if (searchText?.trim()?.length !== 0) {
-      // filter logic implemented here
       searchResults = mockDb.jobs.filter((item) => {
         return (
           (new RegExp(searchText.toLowerCase()).test(item.name.toLowerCase()) ||
             new RegExp(searchText.toLowerCase()).test(
               item.role.toLowerCase()
             )) &&
-          (selectedFilterParams["Job Type"][item.type.id] ||
-            selectedFilterParams["Job Type"][0]) &&
-          (selectedFilterParams["Company Market"][item.company_market.id] ||
-            selectedFilterParams["Company Market"][0]) &&
-          (!selectedFilterParams["Necessary skills"][0]
-            ? item.skills.reduce((cum, item) => {
-                cum = !cum
-                  ? selectedFilterParams["Necessary skills"][item.id]
-                  : cum;
-                return cum;
-              }, false)
-            : true)
+          testFilterSelection(item)
         );
       });
     } else {
-      searchResults = mockDb.jobs;
+      searchResults = mockDb.jobs.filter((item) => {
+        return testFilterSelection(item);
+      });
     }
     dispatch({ jobList: searchResults, searchValue: searchText });
   };
 
+  const onViewResultsBasedOnFilter = () => {
+    const searchResults = mockDb.jobs.filter((item) => {
+      return testFilterSelection(item);
+    });
+
+    dispatch({ jobList: searchResults });
+  };
+
   return {
-    toggleFilterDrawer,
     state,
+    onSearch,
     dispatch,
+    toggleFilterDrawer,
     onFilterOptionSelected,
     onFilterOptionDeselected,
-    onSearch,
+    onViewResultsBasedOnFilter,
+    lazyLoadJobList,
   };
 }

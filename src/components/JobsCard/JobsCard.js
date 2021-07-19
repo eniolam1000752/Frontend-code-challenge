@@ -1,10 +1,38 @@
-import React from "react";
-import { Box, ButtonBase, Grid, IconButton, Paper } from "@material-ui/core";
+import React, { useState } from "react";
+import {
+  Box,
+  ButtonBase,
+  Grid,
+  IconButton,
+  Paper,
+  Tooltip,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import companyLogo from "../../assets/images/logo512.png";
 import LinkIcon from "@material-ui/icons/Link";
 import { Badge } from "../Badge/Badge";
 import path from "path";
+
+function JobDescriptionDetails({ text }) {
+  const classes = useStyles();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  return (
+    <Box className={classes.companyDetailsWrapper}>
+      <span>{!isCollapsed ? text.slice(0, 400) : text}</span>
+      {!(text.length < 400) && (
+        <ButtonBase
+          className="more"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+        >
+          <span>
+            <b> {!isCollapsed ? "More" : "Less"}</b>
+          </span>
+        </ButtonBase>
+      )}
+    </Box>
+  );
+}
 
 export function JobsCard({ noDivider, onMorePressed, jobData }) {
   const classes = useStyles();
@@ -23,25 +51,26 @@ export function JobsCard({ noDivider, onMorePressed, jobData }) {
               <Box className={classes.companyNameWrapper}>
                 <img src={jobData.logo} />
                 <span>{jobData.name}</span>
-                <a
-                  className="company-link"
-                  href={`//${jobData.website_url}`}
-                  rel="noreferrer"
-                  target="_blank"
+
+                <Tooltip
+                  title="Click to visit job website"
+                  aria-label="visit-link"
+                  placement="right"
+                  arrow
                 >
-                  <LinkIcon fontSize="small" />
-                </a>
+                  <a
+                    className="company-link"
+                    href={`//${jobData.website_url}`}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    <LinkIcon fontSize="small" />
+                  </a>
+                </Tooltip>
               </Box>
-              <Box className={classes.companyDetailsWrapper}>
-                <span>{jobData.description}</span>
-                <ButtonBase className="more">
-                  <span>
-                    <b> More</b>
-                  </span>
-                </ButtonBase>
-              </Box>
+              <JobDescriptionDetails text={jobData.description} />
             </Grid>
-            <Grid item md={4}>
+            <Grid item md={4} style={{ height: "140px" }}>
               <Box className={classes.jobDetailsWrapper} display="flex">
                 <div className="v-line" />
                 <Box className="extra-details-wraper">
@@ -55,7 +84,7 @@ export function JobsCard({ noDivider, onMorePressed, jobData }) {
                     <span>
                       <b>Location: </b>
                     </span>
-                    <span>{jobData.location}</span>
+                    <span>{jobData.location.display_text}</span>
                   </Box>
                   <Box className="extra-detail-item">
                     <span>
@@ -141,7 +170,7 @@ const useStyles = makeStyles((theme) => ({
   skillsHeader: {
     fontSize: 13,
     marginLeft: 6,
-    marginTop: -20,
+    marginTop: 5,
     [theme.breakpoints.down("sm")]: {
       marginTop: 10,
       marginBottom: -10,

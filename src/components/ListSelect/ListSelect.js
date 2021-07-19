@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& > .header-text": {
       marginLeft: 40,
-      fontWeight: "600",
+      fontWeight: "700",
       fontSize: 15,
     },
     "& ul li": {},
@@ -68,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "50%",
       backgroundColor: theme.palette.grey0.main,
       marginRight: 15,
+    },
+    "& ul li .list-item > .circle ~ span": {
+      textAlign: "left",
     },
     "& ul li .list-item > .circle.active": {
       backgroundColor: theme.palette.primary.main,

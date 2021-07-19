@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   mainPageWrapper: {
     width: "100%",
+    height: "100%",
     overflowX: "hidden",
 
     "& .jobs-for-you": {
@@ -42,9 +43,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "none",
     position: "relative",
     overflow: "unset",
-    [theme.breakpoints.down("sm")]: {
-      width: "300px",
-    },
   },
   filterCloseBtn: {
     position: "absolute",
@@ -65,11 +63,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "scroll",
     padding: 40,
     boxShadow: "none",
-    "& .page-title": {
-      fontSize: 20,
-      paddingLeft: 10,
-      fontWeigth: "600",
-    },
+
     [theme.breakpoints.down("sm")]: {
       padding: 5,
       paddingTop: 40,
@@ -99,6 +93,54 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 30,
     width: 40,
     height: 40,
+  },
+  emptyText: {
+    textAlign: "center",
+    width: "70%",
+    fontSize: "13px",
+    marginTop: 40,
+    opacity: 0.9,
+    "& span": {
+      opacity: 0.5,
+      fontWeight: 500,
+      paddingTop: 20,
+    },
+  },
+  filterBodyContainer: {
+    marginTop: "10px",
+    marginLeft: "-20px",
+    width: "calc(100% - 0px)",
+    height: "calc(100% - 110px)",
+    overflow: "hidden scroll",
+    zIndex: -10000,
+    [theme.breakpoints.down("sm")]: {},
+    [theme.breakpoints.up("sm")]: {
+      width: "calc(100% - 0px)",
+      marginLeft: "-40px",
+    },
+  },
+  updateButtonWrapper: {
+    display: "flex",
+    justifyContent: "flex-end",
+    width: "calc(100% - 50px)",
+    backgroundColor: theme.palette.white.main,
+    zIndex: 50,
+    paddingBottom: 20,
+    "& .page-title": {
+      fontSize: 20,
+      paddingLeft: 10,
+      fontWeigth: "600",
+      position: "absolute",
+      left: 25,
+    },
+    "& button": {
+      right: 40,
+      [theme.breakpoints.down("xs")]: {
+        transform: "scale(0.8)",
+        right: -40,
+        top: 30,
+      },
+    },
   },
 }));
 

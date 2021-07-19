@@ -7,6 +7,7 @@ import {
   Fab,
   Grid,
   Paper,
+  Tooltip,
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
@@ -19,6 +20,7 @@ import { JobsCard } from "../../components/JobsCard/JobsCard";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { ListSelect } from "../../components/ListSelect/ListSelect";
 import mockDb from "../../utils/mockDb/mockData.json";
+import { ReactComponent as EmptyIcon } from "../../assets/svgs/emptyIcon.svg";
 
 export function JobBoardPage({}) {
   const classes = useStyles(theme);
@@ -29,11 +31,24 @@ export function JobBoardPage({}) {
     dispatch,
     onFilterOptionSelected,
     onFilterOptionDeselected,
+    onViewResultsBasedOnFilter,
     onSearch,
+    lazyLoadJobList,
   } = useController();
 
   return (
-    <main className={classes.mainPageWrapper}>
+    <main
+      className={classes.mainPageWrapper}
+      onScroll={(event) => {
+        const contentHeight = event.target.scrollHeight;
+        const viewPortHeight = event.target.clientHeight;
+        const scrollTop = event.target.scrollTop;
+
+        if (contentHeight - viewPortHeight === scrollTop) {
+          lazyLoadJobList();
+        }
+      }}
+    >
       <Drawer
         anchor={"right"}
         open={state.isFilterDrawerOpen}
@@ -51,15 +66,11 @@ export function JobBoardPage({}) {
             <ArrowForwardIosIcon fontSize="small" />
           </Fab>
           <Box className={classes.filterByContainer}>
-            <span className="page-title">Filter By</span>
-            <Box
-              marginTop="40px"
-              marginLeft="10px"
-              width="calc(100% - 18px)"
-              height="calc(100% - 110px)"
-              overflow="hidden scroll"
-            >
-              <Box width="300px" className={classes.toggleStack}>
+            <Box className={classes.updateButtonWrapper}>
+              <span className="page-title">Filter By</span>
+            </Box>
+            <Box className={classes.filterBodyContainer}>
+              {/* <Box width="300px" className={classes.toggleStack}>
                 <Grid container>
                   <Grid item md={4} sm={4} xs={4}>
                     <ButtonBase
@@ -92,7 +103,7 @@ export function JobBoardPage({}) {
                     </ButtonBase>
                   </Grid>
                 </Grid>
-              </Box>
+              </Box> */}
               <Box
                 display="flex"
                 flexDirection="row"
@@ -117,27 +128,13 @@ export function JobBoardPage({}) {
                   </Box>
                 ))}
               </Box>
-              <Box display="flex" justifyContent="center" marginTop="40px">
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  style={{
-                    borderRadius: 50,
-                    borderWidth: "2px",
-                    fontSize: "0.7em",
-                    padding: 12,
-                  }}
-                >
-                  View Results
-                </Button>
-              </Box>
             </Box>
           </Box>
         </Paper>
       </Drawer>
       <header className={classes.appHeader}>
         <Typography variant="h5" className={classes.appTitle}>
-          <b>InterPlanetry Job Hunt</b>
+          <b>Inter-planetry Job Hunt</b>
         </Typography>
       </header>
       <Box overflow="hidden">
@@ -158,15 +155,17 @@ export function JobBoardPage({}) {
                 justifyContent="flex-end"
               >
                 {!matchSmDown && (
-                  <Fab
-                    aria-label="filter"
-                    onClick={toggleFilterDrawer}
-                    color="primary"
-                    size="small"
-                    className={classes.roundFilterBtn}
-                  >
-                    <FilterListIcon />
-                  </Fab>
+                  <Tooltip title="Filter" aria-label="filter" arrow>
+                    <Fab
+                      aria-label="filter"
+                      onClick={toggleFilterDrawer}
+                      color="primary"
+                      size="small"
+                      className={classes.roundFilterBtn}
+                    >
+                      <FilterListIcon />
+                    </Fab>
+                  </Tooltip>
                 )}
                 <Box width="100%" maxWidth={matchSmDown ? undefined : "300px"}>
                   <Box width="100%">
@@ -199,13 +198,29 @@ export function JobBoardPage({}) {
           </Grid>
         </Box>
         <Box display="flex" alignItems="center" flexDirection="column">
-          {state.jobList.map((item, index) => (
-            <JobsCard
-              jobData={item}
-              key={`job-item-${index}`}
-              noDivider={index === mockDb.jobs.length - 1}
-            />
-          ))}
+          {state.jobList.length === 0 ? (
+            <Box
+              display="flex"
+              alignItems="center"
+              flexDirection="column"
+              width="100%"
+              marginTop="60px"
+            >
+              <EmptyIcon width="100px" height="100px" />
+              <span className={classes.emptyText}>
+                There are no job records based on your filtered search <br />{" "}
+                <span>{state.searchValue}</span>
+              </span>
+            </Box>
+          ) : (
+            state.lazyJobList.map((item, index) => (
+              <JobsCard
+                jobData={item}
+                key={`job-item-${index}`}
+                noDivider={index === state.lazyJobList.length - 1}
+              />
+            ))
+          )}
         </Box>
       </Box>
     </main>
