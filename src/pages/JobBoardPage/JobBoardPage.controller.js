@@ -24,6 +24,9 @@ export function useController() {
     ];
     dispatch({ lazyJobList: tempLazyJobList });
   };
+  useEffect(() => {
+    onSearch(state.searchValue);
+  }, [state.selectedFilterParams]);
 
   useEffect(() => {
     const initSelectedFilterParams = mockDb.filter_params.reduce(
@@ -42,12 +45,6 @@ export function useController() {
     const tempLazyJobList = [...state.jobList.slice(0, 5)];
     dispatch({ lazyJobList: tempLazyJobList });
   }, [state.jobList]);
-
-  useEffect(() => {
-    // if (state.searchValue.length !== 0) {
-    onSearch(state.searchValue);
-    // }
-  }, [state.selectedFilterParams]);
 
   const { selectedFilterParams } = state;
 
@@ -99,16 +96,16 @@ export function useController() {
   const testFilterSelection = (item) => {
     // filter logic implemented here
     return (
-      (selectedFilterParams["Job Type"][item.type.id] ||
-        selectedFilterParams["Job Type"][0]) &&
-      (selectedFilterParams["Company Market"][item.company_market.id] ||
-        selectedFilterParams["Company Market"][0]) &&
-      (selectedFilterParams["Location"][item.location.id] ||
-        selectedFilterParams["Location"][0]) &&
-      (!selectedFilterParams["Necessary skills"][0]
+      (selectedFilterParams["Job Type"]?.[item.type.id] ||
+        selectedFilterParams["Job Type"]?.[0]) &&
+      (selectedFilterParams["Company Market"]?.[item.company_market.id] ||
+        selectedFilterParams["Company Market"]?.[0]) &&
+      (selectedFilterParams["Location"]?.[item.location.id] ||
+        selectedFilterParams["Location"]?.[0]) &&
+      (!selectedFilterParams["Necessary skills"]?.[0]
         ? item.skills.reduce((cum, item) => {
             cum = !cum
-              ? selectedFilterParams["Necessary skills"][item.id]
+              ? selectedFilterParams["Necessary skills"]?.[item.id]
               : cum;
             return cum;
           }, false)
@@ -118,7 +115,6 @@ export function useController() {
 
   const onSearch = (searchText) => {
     let searchResults = [];
-
     if (searchText?.trim()?.length !== 0) {
       searchResults = mockDb.jobs.filter((item) => {
         return (
@@ -141,7 +137,6 @@ export function useController() {
     const searchResults = mockDb.jobs.filter((item) => {
       return testFilterSelection(item);
     });
-
     dispatch({ jobList: searchResults });
   };
 

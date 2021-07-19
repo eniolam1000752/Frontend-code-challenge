@@ -31,7 +31,6 @@ export function JobBoardPage({}) {
     dispatch,
     onFilterOptionSelected,
     onFilterOptionDeselected,
-    onViewResultsBasedOnFilter,
     onSearch,
     lazyLoadJobList,
   } = useController();
