@@ -25,6 +25,7 @@ export function ListSelect({
         {listItem.map((item, index) => (
           <li key={`list-item-${index}`}>
             <ButtonBase
+              data-testid={`${headerText}-${item}`}
               className="list-item"
               onClick={() => {
                 selected[index] ? onDeSelect(index) : onSelect(index);

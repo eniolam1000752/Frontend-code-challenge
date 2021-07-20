@@ -21,8 +21,25 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     backgroundColor: theme.palette.white.main,
     zIndex: 200,
+    overflow: "hidden",
+    height: 40,
+    "& img": {
+      width: "100%",
+      opacity: 0.06,
+      position: "absolute",
+      zIndex: -1,
+    },
   },
-  appTitle: { fontWeigth: "bold" },
+  appTitle: {
+    fontWeigth: "bold",
+    fontSize: 35,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 30,
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: 25,
+    },
+  },
   searchInput: {
     "& input": {
       height: 20,

@@ -24,6 +24,7 @@ export function useController() {
     ];
     dispatch({ lazyJobList: tempLazyJobList });
   };
+
   useEffect(() => {
     onSearch(state.searchValue);
   }, [state.selectedFilterParams]);
@@ -45,8 +46,6 @@ export function useController() {
     const tempLazyJobList = [...state.jobList.slice(0, 5)];
     dispatch({ lazyJobList: tempLazyJobList });
   }, [state.jobList]);
-
-  const { selectedFilterParams } = state;
 
   const toggleFilterDrawer = () => {
     dispatch({ isFilterDrawerOpen: !state.isFilterDrawerOpen });
@@ -95,6 +94,8 @@ export function useController() {
 
   const testFilterSelection = (item) => {
     // filter logic implemented here
+    const { selectedFilterParams } = state;
+
     return (
       (selectedFilterParams["Job Type"]?.[item.type.id] ||
         selectedFilterParams["Job Type"]?.[0]) &&

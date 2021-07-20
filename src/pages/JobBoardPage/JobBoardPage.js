@@ -2,7 +2,6 @@ import React from "react";
 import {
   Box,
   Button,
-  ButtonBase,
   Drawer,
   Fab,
   Grid,
@@ -21,6 +20,7 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { ListSelect } from "../../components/ListSelect/ListSelect";
 import mockDb from "../../utils/mockDb/mockData.json";
 import { ReactComponent as EmptyIcon } from "../../assets/svgs/emptyIcon.svg";
+import headerBgImage from "../../assets/images/header-bg-img.jpg";
 
 export function JobBoardPage({}) {
   const classes = useStyles(theme);
@@ -28,7 +28,6 @@ export function JobBoardPage({}) {
   const {
     toggleFilterDrawer,
     state,
-    dispatch,
     onFilterOptionSelected,
     onFilterOptionDeselected,
     onSearch,
@@ -69,40 +68,6 @@ export function JobBoardPage({}) {
               <span className="page-title">Filter By</span>
             </Box>
             <Box className={classes.filterBodyContainer}>
-              {/* <Box width="300px" className={classes.toggleStack}>
-                <Grid container>
-                  <Grid item md={4} sm={4} xs={4}>
-                    <ButtonBase
-                      onClick={() => dispatch({ filterJobByForm: "all" })}
-                      className={`switch-button ${
-                        state.filterJobByForm === "all" ? "active" : ""
-                      }`}
-                    >
-                      Entry Level
-                    </ButtonBase>
-                  </Grid>
-                  <Grid item md={4} sm={4} xs={4}>
-                    <ButtonBase
-                      onClick={() => dispatch({ filterJobByForm: "on-site" })}
-                      className={`switch-button ${
-                        state.filterJobByForm === "on-site" ? "active" : ""
-                      }`}
-                    >
-                      Mid Level
-                    </ButtonBase>
-                  </Grid>
-                  <Grid item md={4} sm={4} xs={4}>
-                    <ButtonBase
-                      onClick={() => dispatch({ filterJobByForm: "remote" })}
-                      className={`switch-button ${
-                        state.filterJobByForm === "remote" ? "active" : ""
-                      }`}
-                    >
-                      Experienced
-                    </ButtonBase>
-                  </Grid>
-                </Grid>
-              </Box> */}
               <Box
                 display="flex"
                 flexDirection="row"
@@ -132,7 +97,8 @@ export function JobBoardPage({}) {
         </Paper>
       </Drawer>
       <header className={classes.appHeader}>
-        <Typography variant="h5" className={classes.appTitle}>
+        <img src={headerBgImage} alt="header-background" />
+        <Typography variant="h4" className={classes.appTitle}>
           <b>Inter-planetry Job Hunt</b>
         </Typography>
       </header>
@@ -156,6 +122,7 @@ export function JobBoardPage({}) {
                 {!matchSmDown && (
                   <Tooltip title="Filter" aria-label="filter" arrow>
                     <Fab
+                      data-testid="filter-trigger-button"
                       aria-label="filter"
                       onClick={toggleFilterDrawer}
                       color="primary"
@@ -169,6 +136,7 @@ export function JobBoardPage({}) {
                 <Box width="100%" maxWidth={matchSmDown ? undefined : "300px"}>
                   <Box width="100%">
                     <SearchInput
+                      data-testid="search-input"
                       placeholder={"Search by company or job title "}
                       searchValue={state.searchValue}
                       onChangeText={(event) => {
@@ -180,6 +148,7 @@ export function JobBoardPage({}) {
                   {matchSmDown && (
                     <Box marginTop="20px">
                       <Button
+                        data-testid="filter-trigger-button"
                         fullWidth
                         variant="outlined"
                         color="primary"

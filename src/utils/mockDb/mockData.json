@@ -5,7 +5,7 @@
       "id": 1,
       "name": "Google",
       "website_url": "www.google.com",
-      "logo": "/companyLogos/react_logo.png",
+      "logo": "/companyLogos/google_logo.png",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus, tortor ut auctor cursus, mi sem fermentum nisl, a ornare dui turpis non arcu. Nulla vel leo ut mi dictum sollicitudin eget non arcu. Phasellus scelerisque sit amet magna ut tempor.",
       "type": { "id": 1, "display_text": "Internship" },
       "location": { "id": 4, "display_text": "korea" },

@@ -3,15 +3,12 @@ import {
   Box,
   ButtonBase,
   Grid,
-  IconButton,
   Paper,
   Tooltip,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import companyLogo from "../../assets/images/logo512.png";
 import LinkIcon from "@material-ui/icons/Link";
 import { Badge } from "../Badge/Badge";
-import path from "path";
 
 function JobDescriptionDetails({ text }) {
   const classes = useStyles();
@@ -34,7 +31,7 @@ function JobDescriptionDetails({ text }) {
   );
 }
 
-export function JobsCard({ noDivider, onMorePressed, jobData }) {
+export function JobsCard({ noDivider, jobData }) {
   const classes = useStyles();
 
   return (
