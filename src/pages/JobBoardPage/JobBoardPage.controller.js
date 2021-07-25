@@ -42,7 +42,6 @@ export function useController() {
   }, []);
 
   useEffect(() => {
-    const { lazyJobList, jobList } = state;
     const tempLazyJobList = [...state.jobList.slice(0, 5)];
     dispatch({ lazyJobList: tempLazyJobList });
   }, [state.jobList]);
