@@ -45,7 +45,7 @@ describe("Testing JobBoardPage", () => {
 
     fireEvent.change(inputElement, { target: { value: "facebook" } });
 
-    expect(jobBoardInstance.getByText("Jobs for you (18)")).toBeTruthy();
+    expect(jobBoardInstance.getByText("Jobs for you (15)")).toBeTruthy();
   });
 
   it("should render joblist that match search value by job title", () => {
@@ -99,7 +99,7 @@ describe("Testing JobBoardPage", () => {
     fullTimeSelectOption.click();
     softwareSelectOption.click();
 
-    expect(jobBoardInstance.getByText("Jobs for you (18)")).toBeTruthy();
+    expect(jobBoardInstance.getByText("Jobs for you (16)")).toBeTruthy();
   });
   it("should not render any joblist if selected filter option does not match any job listing", () => {
     const jobBoardInstance = render(

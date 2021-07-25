@@ -115,6 +115,7 @@ export function useController() {
   };
 
   const onSearch = (searchText) => {
+    searchText = searchText.trim();
     let searchResults = [];
     if (searchText?.trim()?.length !== 0) {
       searchResults = mockDb.jobs.filter((item) => {
